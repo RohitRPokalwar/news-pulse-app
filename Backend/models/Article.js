@@ -30,7 +30,7 @@ const articleSchema = new mongoose.Schema({
     type: String,
   },
   category: {
-    type: String,
+    type: [String],
     enum: [
       "general",
       "business",
@@ -39,8 +39,10 @@ const articleSchema = new mongoose.Schema({
       "entertainment",
       "health",
       "science",
+      "politics",
+      "world",
     ],
-    default: "general",
+    default: ["general"],
   },
   summary: {
     type: String, // AI-generated summary

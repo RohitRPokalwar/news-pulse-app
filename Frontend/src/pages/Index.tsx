@@ -30,7 +30,15 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [category, setCategory] = useState("general");
+  const [category, setCategory] = useState(() => {
+    const saved = localStorage.getItem("selectedCategory");
+    return saved || "general";
+  });
+
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory);
+    localStorage.setItem("selectedCategory", newCategory);
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<Date | null>(null);
@@ -303,7 +311,7 @@ const Index = () => {
 
       {/* Category Filter - Below Navbar */}
       <div className="container mx-auto px-4 pt-4">
-        <CategoryFilter selected={category} onSelect={setCategory} />
+        <CategoryFilter selected={category} onSelect={handleCategoryChange} />
       </div>
 
       {/* Main Content */}
@@ -340,7 +348,7 @@ const Index = () => {
             <div className="flex items-center gap-2 mb-6 animate-fade-in">
               <TrendingUp className="w-5 h-5 text-accent" />
               <h2 className="text-xl font-semibold text-foreground capitalize">
-                {category} Headlines
+                {category === "all" ? "All News" : `${category} Headlines`}
               </h2>
               <div className="flex items-center gap-2 ml-auto">
                 <Button

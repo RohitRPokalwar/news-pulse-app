@@ -26,6 +26,7 @@ router.get("/", async (req, res) => {
 
     let dbArticles;
     let hasMore = false;
+    const query = category === "all" ? {} : { category: { $in: [category] } };
 
     if (since) {
       // Refresh: Fetch fresh data from NewsAPI and store new articles
@@ -33,7 +34,7 @@ router.get("/", async (req, res) => {
 
       const response = await axios.get("https://newsapi.org/v2/top-headlines", {
         params: {
-          category,
+          category: category === "all" ? undefined : category,
           country: "us",
           pageSize: 100, // Fetch more to get latest
           apiKey: newsApiKey,
@@ -56,7 +57,7 @@ router.get("/", async (req, res) => {
             publishedAt: new Date(articleData.publishedAt),
             source: articleData.source,
             author: articleData.author,
-            category,
+            category: category === "all" ? ["general"] : [category], // Default to general for all
           });
           await article.save();
           savedArticles.push(article);
@@ -71,7 +72,7 @@ router.get("/", async (req, res) => {
       console.log(`Saved ${savedArticles.length} new articles during refresh`);
 
       // Return the latest articles from DB, properly sorted
-      dbArticles = await Article.find({ category })
+      dbArticles = await Article.find(query)
         .sort({ publishedAt: -1 })
         .limit(limit);
 
@@ -82,7 +83,7 @@ router.get("/", async (req, res) => {
       );
     } else {
       // Regular pagination
-      dbArticles = await Article.find({ category })
+      dbArticles = await Article.find(query)
         .sort({ publishedAt: -1 })
         .skip(skip)
         .limit(limit + 1); // +1 to check if there are more
@@ -100,7 +101,7 @@ router.get("/", async (req, res) => {
           "https://newsapi.org/v2/top-headlines",
           {
             params: {
-              category,
+              category: category === "all" ? undefined : category,
               country: "us",
               pageSize: 100, // Fetch more to store
               apiKey: newsApiKey,
@@ -130,7 +131,7 @@ router.get("/", async (req, res) => {
               publishedAt: new Date(articleData.publishedAt),
               source: articleData.source,
               author: articleData.author,
-              category,
+              category: category === "all" ? ["general"] : [category],
             });
             await article.save();
             savedArticles.push(article);
@@ -147,7 +148,7 @@ router.get("/", async (req, res) => {
         );
 
         // Return articles from DB after storing
-        dbArticles = await Article.find({ category })
+        dbArticles = await Article.find(query)
           .sort({ publishedAt: -1 })
           .limit(limit + 1);
 

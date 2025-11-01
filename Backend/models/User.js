@@ -22,6 +22,14 @@ const userSchema = new mongoose.Schema({
   preferences: {
     categories: [String], // e.g., ['technology', 'sports']
   },
+  newsletterSubscription: {
+    type: Boolean,
+    default: false,
+  },
+  newsletterTime: {
+    type: String,
+    default: "08:00", // Default to 8 AM
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -1,4 +1,8 @@
-- [ ] Update title in Frontend/index.html to "News Pulse - Trending Headlines Analyzer"
-- [ ] Update meta tags in index.html to reflect "News Pulse"
-- [ ] Add text logo "News Pulse" next to the Newspaper icon in Frontend/src/components/Navbar.tsx
-- [ ] Run the frontend to verify the changes
+- [x] Update Backend/package.json to add nodemailer and node-cron dependencies
+- [x] Modify Backend/models/User.js to add newsletterSubscription field (boolean, default false)
+- [x] Create Backend/scripts/sendNewsletter.js for compiling and sending daily newsletter digests
+- [x] Update Backend/server.js to add /api/newsletter/subscribe route and schedule daily cron job
+- [x] Install new dependencies (npm install in Backend)
+- [x] Set up environment variables for email (EMAIL_HOST, EMAIL_USER, EMAIL_PASS, etc.)
+- [x] Test the newsletter script manually
+- [x] Verify cron job runs daily and emails are sent (check logs)

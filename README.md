@@ -90,7 +90,7 @@ Before running this project, make sure you have the following installed:
    VITE_API_BASE_URL=http://localhost:5000/api
    ```
 
-   Create a `.env` file in the `OneFolder` directory for backend:
+  Create a `.env` file in the `Backend` directory for backend:
 
    ```env
    MONGODB_URI=your_mongodb_atlas_connection_string
@@ -109,7 +109,7 @@ Before running this project, make sure you have the following installed:
 5. **Start the backend server**
 
    ```bash
-   cd OneFolder
+   cd Backend
    npm start
    ```
 

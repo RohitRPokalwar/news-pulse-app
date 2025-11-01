@@ -1,0 +1,4 @@
+- [ ] Update title in Frontend/index.html to "News Pulse - Trending Headlines Analyzer"
+- [ ] Update meta tags in index.html to reflect "News Pulse"
+- [ ] Add text logo "News Pulse" next to the Newspaper icon in Frontend/src/components/Navbar.tsx
+- [ ] Run the frontend to verify the changes

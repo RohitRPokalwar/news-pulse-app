@@ -5,7 +5,11 @@ interface User {
   id: string;
   username: string;
   email: string;
+  bio?: string;
+  avatar?: string;
   preferences?: string[];
+  newsletterSubscription?: boolean;
+  newsletterTime?: string;
 }
 
 export const useAuth = () => {
@@ -44,6 +48,21 @@ export const useAuth = () => {
     }
   };
 
+  const fetchUser = async () => {
+    try {
+      const response = await apiClient.get('/auth/me');
+      const { user: userData } = response.data;
+      setUser(userData);
+      localStorage.setItem('userData', JSON.stringify(userData));
+    } catch (error) {
+      console.error('Failed to fetch user:', error);
+      // If token is invalid, clear storage
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userData');
+      setUser(null);
+    }
+  };
+
   const signUp = async (username: string, email: string, password: string) => {
     try {
       const response = await apiClient.post('/auth/register', { username, email, password });
@@ -65,5 +84,10 @@ export const useAuth = () => {
     setUser(null);
   };
 
-  return { user, loading, signIn, signUp, signOut };
+  const updateUser = (newUserData: User) => {
+    setUser(newUserData);
+    localStorage.setItem('userData', JSON.stringify(newUserData));
+  };
+
+  return { user, loading, signIn, signUp, signOut, updateUser, fetchUser };
 };

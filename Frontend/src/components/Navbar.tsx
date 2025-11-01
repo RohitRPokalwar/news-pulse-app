@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Newspaper, Menu, X, LogOut, Bookmark, BarChart3, Settings } from "lucide-react";
+import { Newspaper, Menu, X, LogOut, Bookmark, BarChart3, Settings, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -32,6 +32,7 @@ const Navbar = ({
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/contact", label: "Contact" },
+    { path: "/profile", label: "Profile" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -116,6 +117,16 @@ const Navbar = ({
                 )}
               </>
             )}
+            <Link to="/profile">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-2 transition-all hover:shadow-md"
+              >
+                <User className="w-4 h-4" />
+                Profile
+              </Button>
+            </Link>
             <Button
               variant="ghost"
               size="sm"
@@ -221,6 +232,15 @@ const Navbar = ({
                     )}
                   </>
                 )}
+                <Link to="/profile" onClick={() => setIsOpen(false)}>
+                  <Button
+                    variant="ghost"
+                    className="justify-start gap-2 w-full"
+                  >
+                    <User className="w-4 h-4" />
+                    Profile
+                  </Button>
+                </Link>
                 <Button
                   variant="ghost"
                   onClick={() => {

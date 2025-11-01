@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const rateLimit = require("express-rate-limit");
 const cron = require("node-cron");
 const connectDB = require("./db");
@@ -14,6 +15,9 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
+
+// Serve static files from uploads directory
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -30,6 +34,7 @@ app.use("/api/bookmarks", require("./routes/bookmarks"));
 app.use("/api/recommendations", require("./routes/recommendations"));
 app.use("/api/summarize", require("./routes/summarize"));
 app.use("/api/newsletter", require("./routes/newsletter"));
+app.use("/api/profile", require("./routes/profile"));
 
 // Health check
 app.get("/api/health", (req, res) => {

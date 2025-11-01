@@ -80,7 +80,11 @@ router.get("/me", auth, async (req, res) => {
       id: req.user._id,
       username: req.user.username,
       email: req.user.email,
+      bio: req.user.bio,
+      avatar: req.user.avatar,
       preferences: req.user.preferences,
+      newsletterSubscription: req.user.newsletterSubscription,
+      newsletterTime: req.user.newsletterTime,
     },
   });
 });

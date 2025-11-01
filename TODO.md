@@ -1,8 +1,8 @@
-- [x] Update Backend/package.json to add nodemailer and node-cron dependencies
-- [x] Modify Backend/models/User.js to add newsletterSubscription field (boolean, default false)
-- [x] Create Backend/scripts/sendNewsletter.js for compiling and sending daily newsletter digests
-- [x] Update Backend/server.js to add /api/newsletter/subscribe route and schedule daily cron job
-- [x] Install new dependencies (npm install in Backend)
-- [x] Set up environment variables for email (EMAIL_HOST, EMAIL_USER, EMAIL_PASS, etc.)
-- [x] Test the newsletter script manually
-- [x] Verify cron job runs daily and emails are sent (check logs)
+# TODO: Remove Avatar from Profile Section
+
+- [x] Remove avatar-related imports (Avatar, AvatarFallback, AvatarImage, Camera)
+- [x] Remove avatar-related state variables (avatarFile, avatarPreview)
+- [x] Remove handleAvatarChange function
+- [x] Update useEffect to not set avatarPreview
+- [x] Modify handleSave to not include avatar in form data
+- [x] Remove the Avatar Section JSX

@@ -30,6 +30,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "08:00", // Default to 8 AM
   },
+  bio: {
+    type: String,
+    default: "",
+    maxlength: 500, // Limit bio to 500 characters
+  },
+  avatar: {
+    type: String,
+    default: "", // URL or path to avatar image
+  },
   createdAt: {
     type: Date,
     default: Date.now,

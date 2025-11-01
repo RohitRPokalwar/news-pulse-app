@@ -23,9 +23,10 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Clear token and redirect to login
+      // Clear token and redirect to auth
       localStorage.removeItem('authToken');
-      window.location.href = '/login';
+      localStorage.removeItem('userData');
+      window.location.href = '/auth';
     }
     return Promise.reject(error);
   }

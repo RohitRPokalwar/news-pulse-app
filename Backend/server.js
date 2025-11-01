@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
+const cron = require("node-cron");
 const connectDB = require("./db");
+const sendNewsletter = require("./scripts/sendNewsletter");
 require("dotenv").config();
 
 const app = express();
@@ -27,6 +29,7 @@ app.use("/api/news", require("./routes/news"));
 app.use("/api/bookmarks", require("./routes/bookmarks"));
 app.use("/api/recommendations", require("./routes/recommendations"));
 app.use("/api/summarize", require("./routes/summarize"));
+app.use("/api/newsletter", require("./routes/newsletter"));
 
 // Health check
 app.get("/api/health", (req, res) => {
@@ -45,6 +48,12 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
+// Schedule newsletter to run every minute for testing (change to '0 8 * * *' for 8 AM daily in production)
+cron.schedule("* * * * *", () => {
+  console.log("Running scheduled newsletter task...");
+  sendNewsletter();
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
